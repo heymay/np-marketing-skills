@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NP Marketing Skills — Claude Code Skill Library</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2a2d3e;
+      --accent: #4f7ef8;
+      --accent-soft: rgba(79,126,248,0.12);
+      --text: #e8eaf0;
+      --muted: #8b90a7;
+      --tag-bg: #252836;
+      --tag-text: #a8b0cc;
+      --green: #34d399;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .logo-text h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-text p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .install-cmd {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 13px;
+      color: var(--green);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.15s;
+    }
+
+    .install-cmd:hover { border-color: var(--accent); }
+
+    .copy-icon { color: var(--muted); font-size: 12px; }
+    .copy-icon.copied { color: var(--green); }
+
+    .hero {
+      padding: 48px 40px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 20px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .controls {
+      padding: 0 40px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 240px;
+      max-width: 400px;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    input[type="search"] {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px 9px 36px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="search"]:focus { border-color: var(--accent); }
+    input[type="search"]::placeholder { color: var(--muted); }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--tag-text);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .pill:hover, .pill.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    main {
+      padding: 0 40px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.15s, transform 0.1s;
+      cursor: default;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .skill-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: var(--text);
+    }
+
+    .skill-slug {
+      font-size: 12px;
+      font-family: "SF Mono", "Fira Code", monospace;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 3px 8px;
+      border-radius: 5px;
+      white-space: nowrap;
+    }
+
+    .skill-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      border-radius: 5px;
+      padding: 3px 8px;
+      font-size: 11px;
+      color: var(--tag-text);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .use-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+
+    .use-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+    }
+
+    .empty-state h3 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 13px;
+      color: var(--text);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.2s ease;
+      z-index: 999;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .count-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      header, .hero, .controls, main { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <div class="logo-badge">🧠</div>
+    <div class="logo-text">
+      <h1>NP Marketing Skills</h1>
+      <p>Claude Code skill library for National Positions</p>
+    </div>
+  </div>
+  <button class="install-cmd" onclick="copyInstall(this)">
+    <span>npx skills add coreyhaines31/marketingskills</span>
+    <span class="copy-icon" id="copy-icon">⎘ copy</span>
+  </button>
+</header>
+
+<section class="hero">
+  <h2>43 Marketing Skills, Ready to Run</h2>
+  <p>Install once in Claude Code and unlock an AI-powered marketing team. Each skill is a specialized agent — just type <code style="color:var(--accent)">/skill-name</code> to launch it.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">43</div><div class="stat-label">Skills</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">AI Editors Supported</div></div>
+  </div>
+</section>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="search" id="search" placeholder="Search skills…" oninput="filterSkills()" />
+  </div>
+  <div class="filter-pills" id="pills">
+    <button class="pill active" data-cat="all" onclick="setCategory('all', this)">All</button>
+    <button class="pill" data-cat="ads" onclick="setCategory('ads', this)">Ads & Paid</button>
+    <button class="pill" data-cat="seo" onclick="setCategory('seo', this)">SEO</button>
+    <button class="pill" data-cat="content" onclick="setCategory('content', this)">Content & Copy</button>
+    <button class="pill" data-cat="email" onclick="setCategory('email', this)">Email & SMS</button>
+    <button class="pill" data-cat="conversion" onclick="setCategory('conversion', this)">Conversion</button>
+    <button class="pill" data-cat="growth" onclick="setCategory('growth', this)">Growth</button>
+    <button class="pill" data-cat="strategy" onclick="setCategory('strategy', this)">Strategy</button>
+  </div>
+</div>
+
+<main>
+  <div class="count-label" id="count-label">Showing 43 skills</div>
+  <div class="grid" id="grid"></div>
+  <div class="empty-state" id="empty" style="display:none">
+    <h3>No skills found</h3>
+    <p>Try a different search or category.</p>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SKILLS = [
+  {
+    slug: "ab-testing",
+    name: "A/B Testing",
+    desc: "Plan, design, and run A/B tests or experiments. Covers hypothesis writing, sample size, statistical significance, ICE scoring, and building an experimentation program.",
+    cats: ["growth", "conversion"],
+    tags: ["Experimentation", "CRO", "Growth"]
+  },
+  {
+    slug: "ad-creative",
+    name: "Ad Creative",
+    desc: "Generate headlines, descriptions, and full ad variations at scale for Google RSA, Meta, LinkedIn, and more. Iterate and test creative fast.",
+    cats: ["ads"],
+    tags: ["Paid Media", "Copy", "Creative"]
+  },
+  {
+    slug: "ads",
+    name: "Paid Ads Strategy",
+    desc: "Campaign strategy, audience targeting, bidding, and optimization for Google, Meta, LinkedIn, Twitter/X, and other ad platforms.",
+    cats: ["ads"],
+    tags: ["Google Ads", "Meta", "PPC", "ROAS"]
+  },
+  {
+    slug: "ai-seo",
+    name: "AI SEO (AEO/GEO)",
+    desc: "Optimize content to be cited by AI search engines — ChatGPT, Perplexity, Claude, Gemini, and Google AI Overviews. Generative Engine Optimization.",
+    cats: ["seo"],
+    tags: ["GEO", "AEO", "AI Search", "LLM"]
+  },
+  {
+    slug: "analytics",
+    name: "Analytics & Tracking",
+    desc: "Set up, audit, or improve analytics tracking. GA4, GTM, event tracking, UTM parameters, conversion measurement, and attribution.",
+    cats: ["strategy", "growth"],
+    tags: ["GA4", "GTM", "Attribution", "Tracking"]
+  },
+  {
+    slug: "aso",
+    name: "App Store Optimization",
+    desc: "Audit and optimize App Store or Google Play listings — keywords, screenshots, descriptions, ratings, and conversion benchmarks.",
+    cats: ["seo", "growth"],
+    tags: ["ASO", "App Store", "Google Play"]
+  },
+  {
+    slug: "churn-prevention",
+    name: "Churn Prevention",
+    desc: "Reduce churn with cancellation flows, save offers, dunning/failed payment recovery, and win-back strategies for subscription products.",
+    cats: ["growth", "conversion"],
+    tags: ["Retention", "SaaS", "Dunning", "Win-back"]
+  },
+  {
+    slug: "co-marketing",
+    name: "Co-Marketing",
+    desc: "Find co-marketing partners, plan joint campaigns, and execute cross-promotions and integration marketing opportunities.",
+    cats: ["growth", "strategy"],
+    tags: ["Partnerships", "Cross-Promo", "Co-Brand"]
+  },
+  {
+    slug: "cold-email",
+    name: "Cold Email",
+    desc: "Write B2B cold outreach emails and multi-touch follow-up sequences that get replies. Subject lines, openers, CTAs, and personalization.",
+    cats: ["email"],
+    tags: ["B2B", "Outbound", "SDR", "Sequences"]
+  },
+  {
+    slug: "community-marketing",
+    name: "Community Marketing",
+    desc: "Build and grow online communities on Discord, Slack, or forums. Community-led growth, brand advocates, and ambassador programs.",
+    cats: ["growth", "strategy"],
+    tags: ["Discord", "Community", "Advocacy", "Word of Mouth"]
+  },
+  {
+    slug: "competitor-profiling",
+    name: "Competitor Profiling",
+    desc: "Deep-dive research on competitors from their URLs. Generates structured competitor profiles with positioning, messaging, and differentiation insights.",
+    cats: ["strategy"],
+    tags: ["Research", "Competitive Intel", "ICP"]
+  },
+  {
+    slug: "competitors",
+    name: "Competitor Pages",
+    desc: "Create SEO-optimized competitor comparison and alternative pages — vs pages, alternative pages, and competitive landing pages.",
+    cats: ["seo", "content"],
+    tags: ["Comparison Pages", "Alt Pages", "SEO"]
+  },
+  {
+    slug: "content-strategy",
+    name: "Content Strategy",
+    desc: "Plan what content to create, build topic clusters, content pillars, editorial calendars, and content roadmaps aligned to business goals.",
+    cats: ["content", "strategy"],
+    tags: ["Editorial", "Topic Clusters", "Roadmap"]
+  },
+  {
+    slug: "copy-editing",
+    name: "Copy Editing",
+    desc: "Edit, polish, and improve existing marketing copy. Proofread, tighten messaging, refresh outdated content, and sharpen CTAs.",
+    cats: ["content"],
+    tags: ["Editing", "Proofreading", "Refresh"]
+  },
+  {
+    slug: "copywriting",
+    name: "Copywriting",
+    desc: "Write or rewrite marketing copy for any page — homepage, landing pages, pricing, features, hero sections, CTAs, and value props.",
+    cats: ["content"],
+    tags: ["Landing Pages", "Homepage", "CTAs"]
+  },
+  {
+    slug: "cro",
+    name: "Conversion Rate Optimization",
+    desc: "Audit and improve conversions on any marketing page or form. Diagnose low-converting pages and recommend specific fixes.",
+    cats: ["conversion"],
+    tags: ["CRO", "Landing Pages", "Forms"]
+  },
+  {
+    slug: "customer-research",
+    name: "Customer Research",
+    desc: "Conduct, analyze, or synthesize customer research — interviews, surveys, review mining (G2, Reddit), personas, and jobs-to-be-done.",
+    cats: ["strategy"],
+    tags: ["ICP", "VOC", "Personas", "JTBD"]
+  },
+  {
+    slug: "directory-submissions",
+    name: "Directory Submissions",
+    desc: "Submit your product to startup, SaaS, AI, and review directories for backlinks, DR, and discovery. Tracks Product Hunt, G2, Capterra, and 50+ others.",
+    cats: ["seo", "growth"],
+    tags: ["Backlinks", "DR", "Product Hunt", "G2"]
+  },
+  {
+    slug: "emails",
+    name: "Email Sequences",
+    desc: "Create automated email flows — welcome series, onboarding drips, nurture sequences, re-engagement campaigns, and lifecycle programs.",
+    cats: ["email"],
+    tags: ["Drip", "Nurture", "Lifecycle", "Automation"]
+  },
+  {
+    slug: "free-tools",
+    name: "Free Tools (Engineering as Marketing)",
+    desc: "Plan and build free tools for lead gen — calculators, graders, generators, and interactive resources that attract links and sign-ups.",
+    cats: ["growth", "content"],
+    tags: ["Lead Gen", "Calculators", "Interactive"]
+  },
+  {
+    slug: "image",
+    name: "Image Generation",
+    desc: "Create and optimize marketing images — blog heroes, social graphics, product mockups, banners, and OG images using AI tools.",
+    cats: ["content"],
+    tags: ["AI Images", "Social Graphics", "Mockups"]
+  },
+  {
+    slug: "launch",
+    name: "Product Launch",
+    desc: "Plan a full product launch — Product Hunt, feature announcements, beta access, waitlists, GTM checklists, and launch day coordination.",
+    cats: ["growth", "strategy"],
+    tags: ["Product Hunt", "GTM", "Launch Day"]
+  },
+  {
+    slug: "lead-magnets",
+    name: "Lead Magnets",
+    desc: "Create and distribute lead magnets for email capture — ebooks, checklists, templates, Notion docs, spreadsheets, and content upgrades.",
+    cats: ["content", "growth"],
+    tags: ["Lead Gen", "Email Capture", "Gated Content"]
+  },
+  {
+    slug: "marketing-ideas",
+    name: "Marketing Ideas",
+    desc: "Generate marketing ideas, growth tactics, and channel strategies for SaaS or software products. 139-idea library across all channels.",
+    cats: ["strategy", "growth"],
+    tags: ["Brainstorm", "Tactics", "Growth"]
+  },
+  {
+    slug: "marketing-plan",
+    name: "Marketing Plan",
+    desc: "Build a comprehensive 13-section marketing plan structured by AARRR. Includes budget, team, milestones, and a full MarTech stack recommendation.",
+    cats: ["strategy"],
+    tags: ["AARRR", "GTM", "CMO", "Roadmap"]
+  },
+  {
+    slug: "marketing-psychology",
+    name: "Marketing Psychology",
+    desc: "Apply psychological principles and cognitive biases to marketing — anchoring, social proof, scarcity, loss aversion, and behavioral nudges.",
+    cats: ["content", "conversion"],
+    tags: ["Psychology", "Persuasion", "Behavioral"]
+  },
+  {
+    slug: "onboarding",
+    name: "User Onboarding",
+    desc: "Optimize post-signup onboarding, activation, first-run experience, and time-to-value. Reduce drop-off and hit the \"aha moment\" faster.",
+    cats: ["conversion", "growth"],
+    tags: ["Activation", "Time-to-Value", "UX", "SaaS"]
+  },
+  {
+    slug: "paywalls",
+    name: "Paywalls & Upgrade Flows",
+    desc: "Design in-app paywalls, upgrade screens, upsell modals, and feature gates that convert free users to paid.",
+    cats: ["conversion"],
+    tags: ["Freemium", "Upsell", "Upgrade", "SaaS"]
+  },
+  {
+    slug: "popups",
+    name: "Popups & Modals",
+    desc: "Create and optimize exit-intent popups, email capture modals, announcement banners, and scroll-triggered overlays.",
+    cats: ["conversion"],
+    tags: ["Exit Intent", "Email Capture", "Overlays"]
+  },
+  {
+    slug: "pricing",
+    name: "Pricing Strategy",
+    desc: "Set or improve pricing — tiers, packaging, freemium vs paid, annual vs monthly, value metrics, and willingness-to-pay research.",
+    cats: ["strategy", "conversion"],
+    tags: ["Pricing", "Packaging", "Monetization"]
+  },
+  {
+    slug: "product-marketing",
+    name: "Product Marketing",
+    desc: "Create your product marketing context document — positioning, ICP, messaging, and competitive differentiation. Foundation for all other skills.",
+    cats: ["strategy"],
+    tags: ["Positioning", "ICP", "Messaging"]
+  },
+  {
+    slug: "programmatic-seo",
+    name: "Programmatic SEO",
+    desc: "Build SEO-driven pages at scale using templates and data — location pages, comparison pages, integration pages, and directory pages.",
+    cats: ["seo"],
+    tags: ["pSEO", "Scale", "Templates", "Data-Driven"]
+  },
+  {
+    slug: "prospecting",
+    name: "Prospecting",
+    desc: "Find and qualify prospects — build target account lists for B2B SaaS, general B2B, or local businesses. ICP-fit accounts at scale.",
+    cats: ["growth"],
+    tags: ["Lead Gen", "Outbound", "B2B", "Target Accounts"]
+  },
+  {
+    slug: "referrals",
+    name: "Referral Programs",
+    desc: "Create or optimize referral programs, affiliate programs, and word-of-mouth strategies. Viral loops, incentive design, and ambassador tiers.",
+    cats: ["growth"],
+    tags: ["Referral", "Affiliate", "Viral", "Word of Mouth"]
+  },
+  {
+    slug: "revops",
+    name: "Revenue Operations",
+    desc: "Align marketing and sales with RevOps — lead scoring, routing, MQL/SQL definitions, CRM automation, and pipeline management.",
+    cats: ["strategy"],
+    tags: ["RevOps", "CRM", "Lead Scoring", "Pipeline"]
+  },
+  {
+    slug: "sales-enablement",
+    name: "Sales Enablement",
+    desc: "Create sales collateral — pitch decks, one-pagers, objection handling guides, demo scripts, talk tracks, and proposal templates.",
+    cats: ["strategy"],
+    tags: ["Sales Deck", "Battle Cards", "Objections"]
+  },
+  {
+    slug: "schema",
+    name: "Schema Markup",
+    desc: "Add or fix structured data and JSON-LD schema for rich snippets — FAQ, Product, Review, Breadcrumb, and more.",
+    cats: ["seo"],
+    tags: ["Structured Data", "JSON-LD", "Rich Snippets"]
+  },
+  {
+    slug: "seo-audit",
+    name: "SEO Audit",
+    desc: "Audit and diagnose SEO issues — technical SEO, on-page, meta tags, Core Web Vitals, indexing, crawl errors, and ranking drops.",
+    cats: ["seo"],
+    tags: ["Technical SEO", "On-Page", "Core Web Vitals"]
+  },
+  {
+    slug: "signup",
+    name: "Signup Optimization",
+    desc: "Reduce friction in signup, registration, and trial activation flows. Fix abandonment and improve trial conversion rates.",
+    cats: ["conversion"],
+    tags: ["Registration", "Trial", "Friction", "UX"]
+  },
+  {
+    slug: "site-architecture",
+    name: "Site Architecture",
+    desc: "Plan or restructure website page hierarchy, navigation, URL structure, and internal linking for SEO and UX.",
+    cats: ["seo", "strategy"],
+    tags: ["IA", "Navigation", "URL Structure", "Sitemap"]
+  },
+  {
+    slug: "sms",
+    name: "SMS Marketing",
+    desc: "Build SMS/MMS marketing flows — welcome texts, abandoned cart, post-purchase, win-back, and promotional campaigns.",
+    cats: ["email"],
+    tags: ["SMS", "MMS", "Klaviyo", "Postscript"]
+  },
+  {
+    slug: "social",
+    name: "Social Media",
+    desc: "Create social content for LinkedIn, Twitter/X, Instagram, TikTok, and Facebook — posts, threads, carousels, Reels scripts, and calendars.",
+    cats: ["content"],
+    tags: ["LinkedIn", "Twitter", "TikTok", "Reels"]
+  },
+  {
+    slug: "video",
+    name: "Video Production",
+    desc: "Create and produce AI video content using Runway, HeyGen, Synthesia, Remotion, and other tools. Explainers, demos, and programmatic video.",
+    cats: ["content"],
+    tags: ["AI Video", "HeyGen", "Runway", "Explainer"]
+  }
+];
+
+let activeCategory = "all";
+
+function shortDesc(desc) {
+  return desc.length > 140 ? desc.slice(0, 137) + "…" : desc;
+}
+
+function renderCards(skills) {
+  const grid = document.getElementById("grid");
+  const empty = document.getElementById("empty");
+  const label = document.getElementById("count-label");
+
+  if (!skills.length) {
+    grid.innerHTML = "";
+    empty.style.display = "block";
+    label.textContent = "0 skills found";
+    return;
+  }
+
+  empty.style.display = "none";
+  label.textContent = `Showing ${skills.length} skill${skills.length !== 1 ? "s" : ""}`;
+
+  grid.innerHTML = skills.map(s => `
+    <div class="card">
+      <div class="card-top">
+        <span class="skill-name">${s.name}</span>
+        <span class="skill-slug">/${s.slug}</span>
+      </div>
+      <p class="skill-desc">${shortDesc(s.desc)}</p>
+      <div class="card-tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+      <div class="card-footer">
+        <button class="use-btn" onclick="copySlug('/${s.slug}')">⎘ Copy slash command</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function filterSkills() {
+  const q = document.getElementById("search").value.toLowerCase();
+  let skills = SKILLS;
+
+  if (activeCategory !== "all") {
+    skills = skills.filter(s => s.cats.includes(activeCategory));
+  }
+
+  if (q) {
+    skills = skills.filter(s =>
+      s.name.toLowerCase().includes(q) ||
+      s.desc.toLowerCase().includes(q) ||
+      s.tags.some(t => t.toLowerCase().includes(q)) ||
+      s.slug.toLowerCase().includes(q)
+    );
+  }
+
+  renderCards(skills);
+}
+
+function setCategory(cat, el) {
+  activeCategory = cat;
+  document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+  el.classList.add("active");
+  filterSkills();
+}
+
+function copySlug(text) {
+  navigator.clipboard.writeText(text).then(() => showToast(`Copied ${text}`));
+}
+
+function copyInstall(btn) {
+  const cmd = "npx skills add coreyhaines31/marketingskills";
+  navigator.clipboard.writeText(cmd).then(() => {
+    const icon = document.getElementById("copy-icon");
+    icon.textContent = "✓ copied";
+    icon.classList.add("copied");
+    showToast("Install command copied!");
+    setTimeout(() => {
+      icon.textContent = "⎘ copy";
+      icon.classList.remove("copied");
+    }, 2000);
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+renderCards(SKILLS);
+</script>
+</body>
+</html>
