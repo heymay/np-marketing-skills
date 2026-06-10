@@ -424,10 +424,10 @@
 </header>
 
 <section class="hero">
-  <h2>73 Marketing Skills, Ready to Run</h2>
+  <h2>74 Marketing Skills, Ready to Run</h2>
   <p>Install once in Claude Code and unlock an AI-powered marketing team. Each skill is a specialized agent — just type <code style="color:var(--accent)">/skill-name</code> to launch it.</p>
   <div class="stats">
-    <div class="stat"><div class="stat-num">73</div><div class="stat-label">Skills</div></div>
+    <div class="stat"><div class="stat-num">74</div><div class="stat-label">Skills</div></div>
     <div class="stat"><div class="stat-num">9</div><div class="stat-label">Categories</div></div>
     <div class="stat"><div class="stat-num">5</div><div class="stat-label">AI Editors Supported</div></div>
   </div>
@@ -780,6 +780,16 @@ const SKILLS = [
     tags: ["AI Video", "HeyGen", "Runway", "Explainer"]
   },
 
+  // ── SERP Content Brief Generator (from agniiva/Content-Brief-Generator-SERP) ──
+  {
+    slug: "content-brief-serp",
+    name: "SERP Content Brief Generator",
+    desc: "Scrapes H1–H3 headings and body copy from the top 10 ranking pages for any keyword, consolidates the data, and generates a hyper-optimized content brief using GPT-4o. Outputs content idea thesis, content type, structure outline, and key takeaways in Markdown. Requires SERPer Dev + OpenAI API keys.",
+    cats: ["seo", "content"],
+    tags: ["Content Brief", "SERP", "GPT-4o", "Keyword Research"],
+    repo: "https://github.com/agniiva/Content-Brief-Generator-SERP"
+  },
+
   // ── Blog Skills (from AgriciDaniel/claude-blog) ──────────────────────────
   {
     slug: "blog",
@@ -1023,7 +1033,10 @@ function renderCards(skills) {
       <p class="skill-desc">${shortDesc(s.desc)}</p>
       <div class="card-tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
       <div class="card-footer">
-        <button class="use-btn" onclick="copySlug('/${s.slug}')">⎘ Copy slash command</button>
+        ${s.repo
+          ? `<a class="use-btn" href="${s.repo}" target="_blank" rel="noopener">↗ View on GitHub</a>`
+          : `<button class="use-btn" onclick="copySlug('/${s.slug}')">⎘ Copy slash command</button>`
+        }
       </div>
     </div>
   `).join("");
