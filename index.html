@@ -68,19 +68,27 @@
       margin-top: 1px;
     }
 
+    .install-cmds {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+
     .install-cmd {
       background: var(--tag-bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 8px 14px;
+      padding: 7px 14px;
       font-family: "SF Mono", "Fira Code", monospace;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--green);
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
       transition: border-color 0.15s;
+      white-space: nowrap;
     }
 
     .install-cmd:hover { border-color: var(--accent); }
@@ -417,10 +425,20 @@
       <p>Claude Code skill library for National Positions</p>
     </div>
   </div>
-  <button class="install-cmd" onclick="copyInstall(this)">
-    <span>npx skills add coreyhaines31/marketingskills</span>
-    <span class="copy-icon" id="copy-icon">⎘ copy</span>
-  </button>
+  <div class="install-cmds">
+    <button class="install-cmd" onclick="copyCmd(this, 'npx skills add coreyhaines31/marketingskills')">
+      <span>npx skills add coreyhaines31/marketingskills</span>
+      <span class="copy-icon">⎘ copy</span>
+    </button>
+    <button class="install-cmd" onclick="copyCmd(this, 'npx skills add AgriciDaniel/claude-blog')">
+      <span>npx skills add AgriciDaniel/claude-blog</span>
+      <span class="copy-icon">⎘ copy</span>
+    </button>
+    <button class="install-cmd" onclick="copyCmd(this, 'git clone https://github.com/agniiva/Content-Brief-Generator-SERP.git')">
+      <span>agniiva/Content-Brief-Generator-SERP</span>
+      <span class="copy-icon">⎘ copy</span>
+    </button>
+  </div>
 </header>
 
 <section class="hero">
@@ -1089,13 +1107,12 @@ function copySlug(text) {
   navigator.clipboard.writeText(text).then(() => showToast(`Copied ${text}`));
 }
 
-function copyInstall(btn) {
-  const cmd = "npx skills add coreyhaines31/marketingskills";
+function copyCmd(btn, cmd) {
   navigator.clipboard.writeText(cmd).then(() => {
-    const icon = document.getElementById("copy-icon");
+    const icon = btn.querySelector(".copy-icon");
     icon.textContent = "✓ copied";
     icon.classList.add("copied");
-    showToast("Install command copied!");
+    showToast("Copied!");
     setTimeout(() => {
       icon.textContent = "⎘ copy";
       icon.classList.remove("copied");
