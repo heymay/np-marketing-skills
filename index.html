@@ -424,10 +424,10 @@
 </header>
 
 <section class="hero">
-  <h2>74 Marketing Skills, Ready to Run</h2>
+  <h2>76 Marketing Skills, Ready to Run</h2>
   <p>Install once in Claude Code and unlock an AI-powered marketing team. Each skill is a specialized agent — just type <code style="color:var(--accent)">/skill-name</code> to launch it.</p>
   <div class="stats">
-    <div class="stat"><div class="stat-num">74</div><div class="stat-label">Skills</div></div>
+    <div class="stat"><div class="stat-num">76</div><div class="stat-label">Skills</div></div>
     <div class="stat"><div class="stat-num">9</div><div class="stat-label">Categories</div></div>
     <div class="stat"><div class="stat-num">5</div><div class="stat-label">AI Editors Supported</div></div>
   </div>
@@ -782,11 +782,27 @@ const SKILLS = [
 
   // ── SERP Content Brief Generator (from agniiva/Content-Brief-Generator-SERP) ──
   {
-    slug: "content-brief-serp",
-    name: "SERP Content Brief Generator",
-    desc: "Scrapes H1–H3 headings and body copy from the top 10 ranking pages for any keyword, consolidates the data, and generates a hyper-optimized content brief using GPT-4o. Outputs content idea thesis, content type, structure outline, and key takeaways in Markdown. Requires SERPer Dev + OpenAI API keys.",
+    slug: "serp-top-sites",
+    name: "SERP Top Sites Fetcher",
+    desc: "Fetches the top 10 organic search results for any keyword using the SERPer Dev API. Returns a ranked list of URLs currently dominating Google for your target keyword — the foundation for competitive content research.",
     cats: ["seo", "content"],
-    tags: ["Content Brief", "SERP", "GPT-4o", "Keyword Research"],
+    tags: ["SERP", "Keyword Research", "Competitive Research", "SERPer Dev"],
+    repo: "https://github.com/agniiva/Content-Brief-Generator-SERP"
+  },
+  {
+    slug: "serp-tag-scraper",
+    name: "SERP Tag Scraper",
+    desc: "Scrapes selected HTML tags (H1, H2, H3, paragraph text) from any list of URLs. Pulls the structural content and messaging from top-ranking pages to reveal how competitors organize and present their content.",
+    cats: ["seo", "content"],
+    tags: ["Web Scraping", "SERP", "Content Analysis", "On-Page SEO"],
+    repo: "https://github.com/agniiva/Content-Brief-Generator-SERP"
+  },
+  {
+    slug: "content-brief-generator",
+    name: "Content Brief Generator",
+    desc: "Takes consolidated SERP scrape data and generates a hyper-optimized content brief using GPT-4o. Outputs a content idea thesis, content type recommendation (article, calculator, landing page), heading structure, key points, and writer-ready takeaways in Markdown.",
+    cats: ["seo", "content"],
+    tags: ["Content Brief", "GPT-4o", "SEO Writing", "Content Strategy"],
     repo: "https://github.com/agniiva/Content-Brief-Generator-SERP"
   },
 
