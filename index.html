@@ -424,11 +424,11 @@
 </header>
 
 <section class="hero">
-  <h2>43 Marketing Skills, Ready to Run</h2>
+  <h2>73 Marketing Skills, Ready to Run</h2>
   <p>Install once in Claude Code and unlock an AI-powered marketing team. Each skill is a specialized agent — just type <code style="color:var(--accent)">/skill-name</code> to launch it.</p>
   <div class="stats">
-    <div class="stat"><div class="stat-num">43</div><div class="stat-label">Skills</div></div>
-    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">73</div><div class="stat-label">Skills</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Categories</div></div>
     <div class="stat"><div class="stat-num">5</div><div class="stat-label">AI Editors Supported</div></div>
   </div>
 </section>
@@ -461,6 +461,7 @@
     <button class="pill" data-cat="conversion" onclick="setCategory('conversion', this)">Conversion</button>
     <button class="pill" data-cat="growth" onclick="setCategory('growth', this)">Growth</button>
     <button class="pill" data-cat="strategy" onclick="setCategory('strategy', this)">Strategy</button>
+    <button class="pill" data-cat="blog" onclick="setCategory('blog', this)">Blog</button>
   </div>
 </div>
 
@@ -777,6 +778,218 @@ const SKILLS = [
     desc: "Create and produce AI video content using Runway, HeyGen, Synthesia, Remotion, and other tools. Explainers, demos, and programmatic video.",
     cats: ["content"],
     tags: ["AI Video", "HeyGen", "Runway", "Explainer"]
+  },
+
+  // ── Blog Skills (from AgriciDaniel/claude-blog) ──────────────────────────
+  {
+    slug: "blog",
+    name: "Blog (Full Engine)",
+    desc: "Full-lifecycle blog engine with 30 sub-skills, 12 content templates, 5-category 100-point scoring, and 5 specialized agents. Routes requests to the right sub-skill: writing, rewriting, audits, outlines, schema, charts, images, repurposing, and multilingual publishing.",
+    cats: ["blog", "content", "seo"],
+    tags: ["Blog", "E-E-A-T", "WordPress", "Full Engine"]
+  },
+  {
+    slug: "blog-write",
+    name: "Blog Write",
+    desc: "Write new blog articles from scratch optimized for Google rankings and AI citations. Generates full articles with template selection, answer-first structure, and E-E-A-T signals.",
+    cats: ["blog", "content", "seo"],
+    tags: ["Blog", "Writing", "E-E-A-T", "SEO"]
+  },
+  {
+    slug: "blog-rewrite",
+    name: "Blog Rewrite",
+    desc: "Rewrite and optimize existing blog posts for Google rankings (December 2025 Core Update, E-E-A-T) and AI citations (GEO/AEO). Full rewrite for both Google and AI search.",
+    cats: ["blog", "content", "seo"],
+    tags: ["Blog", "Rewrite", "GEO", "E-E-A-T"]
+  },
+  {
+    slug: "blog-outline",
+    name: "Blog Outline",
+    desc: "SERP-informed outline generation with H2/H3 heading hierarchy, competitive content gap analysis, section-by-section word count targets, and chart and image placement recommendations.",
+    cats: ["blog", "content", "seo"],
+    tags: ["Blog", "Outline", "SERP", "Content Gap"]
+  },
+  {
+    slug: "blog-brief",
+    name: "Blog Brief",
+    desc: "Generate detailed content briefs for blog posts with target keywords, content outlines, competitive analysis, recommended statistics, and image and schema suggestions.",
+    cats: ["blog", "content", "seo"],
+    tags: ["Blog", "Brief", "Keyword Research", "SEO"]
+  },
+  {
+    slug: "blog-analyze",
+    name: "Blog Analyze",
+    desc: "Audit and score blog posts on a 5-category 100-point scoring system covering content quality, SEO optimization, E-E-A-T signals, technical elements, and AI citation readiness.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "Audit", "Scoring", "E-E-A-T"]
+  },
+  {
+    slug: "blog-audit",
+    name: "Blog Audit",
+    desc: "Full-site blog health assessment scanning all blog files for quality scores, orphan pages, topic cannibalization, stale content, and AI citation readiness.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "Site Audit", "Cannibalization", "Health"]
+  },
+  {
+    slug: "blog-seo-check",
+    name: "Blog SEO Check",
+    desc: "Post-writing SEO validation with pass/fail checklist covering title tag length and keyword placement, meta description quality, heading hierarchy, and internal linking.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "SEO", "Checklist", "On-Page"]
+  },
+  {
+    slug: "blog-strategy",
+    name: "Blog Strategy",
+    desc: "Blog strategy development including topic cluster architecture with hub-and-spoke design, audience mapping, competitive landscape analysis, and content roadmap planning.",
+    cats: ["blog", "content", "seo"],
+    tags: ["Blog", "Strategy", "Topic Clusters", "Roadmap"]
+  },
+  {
+    slug: "blog-cluster",
+    name: "Blog Cluster",
+    desc: "Semantic topic cluster planning and automated execution. Performs SERP-based keyword research, groups keywords by search intent, and builds hub-and-spoke content architecture.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "Topic Clusters", "SERP", "Keyword Research"]
+  },
+  {
+    slug: "blog-calendar",
+    name: "Blog Calendar",
+    desc: "Generate editorial calendars with topic clusters, publishing schedules, content decay detection, freshness update plans, and seasonal content recommendations.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Editorial Calendar", "Content Planning"]
+  },
+  {
+    slug: "blog-repurpose",
+    name: "Blog Repurpose",
+    desc: "Repurpose blog posts for social media, email, YouTube, Reddit, and LinkedIn. Generates Twitter/X threads, LinkedIn articles, YouTube scripts, Reddit posts, and email newsletters.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Repurpose", "Social", "Email"]
+  },
+  {
+    slug: "blog-schema",
+    name: "Blog Schema",
+    desc: "Generate complete JSON-LD schema markup for blog posts including BlogPosting, Person, Organization, BreadcrumbList, FAQPage, and ImageObject.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "Schema", "JSON-LD", "Rich Snippets"]
+  },
+  {
+    slug: "blog-geo",
+    name: "Blog GEO",
+    desc: "AI citation readiness audit for blog content. Use when you want your posts to be cited by ChatGPT, Perplexity, Claude, and Google AI Overviews.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "GEO", "AEO", "AI Citations"]
+  },
+  {
+    slug: "blog-discourse",
+    name: "Blog Discourse",
+    desc: "Research what people are actually saying about a topic in the last 30 days across Reddit, X/Twitter, YouTube, Hacker News, dev.to, Medium, and other communities.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Research", "Reddit", "Audience Intel"]
+  },
+  {
+    slug: "blog-factcheck",
+    name: "Blog Fact Check",
+    desc: "Verify statistics and claims in blog posts by fetching cited source URLs and checking if the claimed data actually appears on the page. Flags unsupported claims.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Fact Check", "Accuracy", "Sources"]
+  },
+  {
+    slug: "blog-cannibalization",
+    name: "Blog Cannibalization",
+    desc: "Detect keyword cannibalization across blog posts by extracting primary keywords from titles and headings, clustering semantically similar targets, and flagging conflicts.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "Cannibalization", "Keywords", "Technical SEO"]
+  },
+  {
+    slug: "blog-taxonomy",
+    name: "Blog Taxonomy",
+    desc: "Extract, suggest, and sync tags and categories for blog posts across all major CMS platforms — WordPress, Shopify, Ghost, and more.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Taxonomy", "CMS", "Tags"]
+  },
+  {
+    slug: "blog-image",
+    name: "Blog Image",
+    desc: "AI image generation and editing for blog content powered by Gemini. Claude acts as Creative Director — interpreting intent, selecting styles, and generating hero images and inline visuals.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Images", "AI Image", "Gemini"]
+  },
+  {
+    slug: "blog-chart",
+    name: "Blog Chart",
+    desc: "Generate dark-mode-compatible inline SVG data visualization charts for blog posts. Supports horizontal bar, grouped bar, donut, line, lollipop, area, and more chart types.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Charts", "SVG", "Data Viz"]
+  },
+  {
+    slug: "blog-brand",
+    name: "Blog Brand",
+    desc: "Establish durable brand and voice context for cross-skill consumption. Generates BRAND.md with audience, positioning, do/don't editorial rules, and taboo topics.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Brand Voice", "Style Guide", "Editorial"]
+  },
+  {
+    slug: "blog-persona",
+    name: "Blog Persona",
+    desc: "Create and manage writing personas with NNGroup's 4-dimension tone framework (Funny-Serious, Formal-Casual, Respectful-Irreverent, Enthusiastic-Matter-of-fact).",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Persona", "Tone", "Voice"]
+  },
+  {
+    slug: "blog-flow",
+    name: "Blog FLOW",
+    desc: "FLOW framework integration for bloggers. Evidence-led content workflow using the Find, Optimize, Win loop with stage-specific AI prompts.",
+    cats: ["blog", "content", "seo"],
+    tags: ["Blog", "FLOW", "Framework", "Workflow"]
+  },
+  {
+    slug: "blog-google",
+    name: "Blog Google",
+    desc: "Google API integration for blog performance: PageSpeed Insights, Core Web Vitals with 25-week history, Search Console performance, URL Inspection, and Indexing API.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "Search Console", "PageSpeed", "Core Web Vitals"]
+  },
+  {
+    slug: "blog-translate",
+    name: "Blog Translate",
+    desc: "Translate existing blog posts into one or more target languages with SEO-optimized localization. Produces native-quality translations that preserve keyword intent.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Translation", "Localization", "Multilingual"]
+  },
+  {
+    slug: "blog-localize",
+    name: "Blog Localize",
+    desc: "Cultural adaptation for translated content. Run after blog-translate to adjust brand examples, CTAs, legal references, and formality level for each target market.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Localization", "Cultural Adaptation", "i18n"]
+  },
+  {
+    slug: "blog-multilingual",
+    name: "Blog Multilingual",
+    desc: "One-command multilingual blog creation. Writes a blog post, translates it into user-specified languages, applies cultural adaptation, and emits hreflang-ready output.",
+    cats: ["blog", "content", "seo"],
+    tags: ["Blog", "Multilingual", "hreflang", "i18n"]
+  },
+  {
+    slug: "blog-locale-audit",
+    name: "Blog Locale Audit",
+    desc: "Audit a directory of multilingual blog content for completeness, consistency, hreflang correctness, meta-tag parity, and freshness. Builds a translation coverage tracker.",
+    cats: ["blog", "seo"],
+    tags: ["Blog", "hreflang", "i18n Audit", "Multilingual"]
+  },
+  {
+    slug: "blog-audio",
+    name: "Blog Audio",
+    desc: "Generate audio narration of blog posts using Google Gemini TTS. Supports summary narration, full article read-aloud, and two-speaker podcast-style audio.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "Audio", "TTS", "Podcast"]
+  },
+  {
+    slug: "blog-notebooklm",
+    name: "Blog NotebookLM",
+    desc: "Query Google NotebookLM notebooks for source-grounded, citation-backed answers from user-uploaded documents. Manages notebook library and handles session continuity.",
+    cats: ["blog", "content"],
+    tags: ["Blog", "NotebookLM", "Research", "Citations"]
   }
 ];
 
