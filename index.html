@@ -1071,6 +1071,7 @@ function renderCards(skills) {
           ? `<a class="use-btn" href="${s.repo}" target="_blank" rel="noopener">↗ View on GitHub</a>`
           : `<button class="use-btn" onclick="copySlug('/${s.slug}')">⎘ Copy slash command</button>`
         }
+        ${!s.repo ? `<button class="use-btn" onclick="downloadSkill('${s.slug}')">⬇ Download</button>` : ''}
       </div>
     </div>
   `).join("");
@@ -1105,6 +1106,26 @@ function setCategory(cat, el) {
 
 function copySlug(text) {
   navigator.clipboard.writeText(text).then(() => showToast(`Copied ${text}`));
+}
+
+function downloadSkill(slug) {
+  const blogSlugs = new Set(["blog","blog-analyze","blog-audio","blog-audit","blog-brand","blog-brief","blog-calendar","blog-cannibalization","blog-chart","blog-cluster","blog-discourse","blog-factcheck","blog-flow","blog-geo","blog-google","blog-image","blog-locale-audit","blog-localize","blog-multilingual","blog-notebooklm","blog-outline","blog-persona","blog-repurpose","blog-rewrite","blog-schema","blog-seo-check","blog-strategy","blog-taxonomy","blog-translate","blog-write"]);
+  const base = blogSlugs.has(slug)
+    ? `https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/skills/${slug}/SKILL.md`
+    : `https://raw.githubusercontent.com/coreyhaines31/marketingskills/main/skills/${slug}/SKILL.md`;
+
+  showToast(`Downloading ${slug}…`);
+  fetch(base)
+    .then(r => { if (!r.ok) throw new Error(); return r.blob(); })
+    .then(blob => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `${slug}.md`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showToast(`✓ Downloaded ${slug}.md`);
+    })
+    .catch(() => showToast(`Error downloading ${slug} — check console`));
 }
 
 function copyCmd(btn, cmd) {
